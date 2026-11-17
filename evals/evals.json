@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "notes": "Trigger and workflow cases for html2figma. Run each 3x in a fresh session; a case passes when the skill triggers (or stays quiet) as marked, and the first response matches the expected first step.",
+  "cases": [
+    {
+      "name": "zh-html-to-figma-sticky",
+      "prompt": "把这个 HTML 手机原型转成 Figma 可编辑原型，底部导航要固定在屏幕底部，能点击跳屏。",
+      "should_trigger": true,
+      "expected_first_step": "Phase 1 preflight: inventory screens, sizes, hotspots, persistent layers (do not import yet)."
+    },
+    {
+      "name": "en-html-mockup-import",
+      "prompt": "I have a local HTML mockup of a mobile app. Import it into Figma as editable layers and keep the bottom tab bar fixed while scrolling.",
+      "should_trigger": true,
+      "expected_first_step": "Phase 1 preflight; confirm viewport size and persistent layers before import."
+    },
+    {
+      "name": "zh-repair-dock-scroll",
+      "prompt": "Figma 里底部栏跑到长图最下面了，而且页面不能滚动，帮我修一下。",
+      "should_trigger": true,
+      "expected_first_step": "Diagnose viewport/UNCLIP and overflowDirection; then reshape to 3xx×8xx viewport."
+    },
+    {
+      "name": "zh-no-html-author-first",
+      "prompt": "我还没有原型，先帮我做一版手机 App 的 HTML 原型，确认后再进 Figma。",
+      "should_trigger": true,
+      "expected_first_step": "Phase 0: author HTML to references/html-prototype-spec.md, render screenshots, stop for user sign-off."
+    },
+    {
+      "name": "negative-native-figma-wiring",
+      "prompt": "帮我把这个 Figma 原型里的按钮都连起来，做成点击跳屏的演示，我没有 HTML 稿。",
+      "should_trigger": false,
+      "expected_first_step": "Answer as native Figma prototype wiring; do not run the HTML import pipeline."
+    },
+    {
+      "name": "negative-desktop-static-import",
+      "prompt": "把这个 HTML 页面做成 Figma 设计稿，桌面端 1440 宽，不需要点击交互。",
+      "should_trigger": false,
+      "expected_first_step": "Treat as a desktop static import; the skill's 393×852 clickable-prototype pipeline does not apply."
+    },
+    {
+      "name": "negative-simple-howto",
+      "prompt": "Figma 的 iPhone 15 Pro 设备模型在哪里设置？",
+      "should_trigger": false,
+      "expected_first_step": "Answer the UI question directly (Prototype panel, no selection → Device)."
+    },
+    {
+      "name": "en-repair-sticky-header",
+      "prompt": "After importing my HTML prototype, the sticky header scrolls away in Figma Present. Make it stay fixed.",
+      "should_trigger": true,
+      "expected_first_step": "Check persistent-layer classification and numberOfFixedChildren ordering; verify with Present scroll."
+    },
+    {
+      "name": "zh-responsive-vh-import",
+      "prompt": "我的 HTML 原型用了 100vh 和 max-width 媒体查询，导入 Figma 后布局全乱了，怎么办？",
+      "should_trigger": true,
+      "expected_first_step": "Set the importer viewport to the prototype size before Convert; rebuild feed if needed."
+    },
+    {
+      "name": "negative-plugin-install",
+      "prompt": "open-htmltofigma 这个插件怎么安装？",
+      "should_trigger": false,
+      "expected_first_step": "Answer the installation question from the README; do not start the full pipeline."
+    }
+  ]
+}
