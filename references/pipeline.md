@@ -90,6 +90,14 @@ powershell -NoProfile -File scripts/install_font.ps1 -Src instances -Prefix "MP"
 
 ## 3. 导入与拆板
 
+### 3.0 安装上游插件（open-htmltofigma）
+
+1. `git clone https://github.com/kevicebryan/open-htmltofigma.git`（MIT）
+2. 固定版本：`git checkout <tag-or-commit>`，把版本写进项目 README/配置，升级前先回归
+3. Figma 桌面 → 菜单 **Plugins → Development → Import plugin from manifest…** → 选择仓库里的 `manifest.json`
+4. 若提示 id 冲突/已有同名插件，修改 `manifest.json` 的 `id` 后重新导入
+5. 插件是静态文件（manifest / code.js / ui.html），通常无需构建；若上游 README 要求 `npm install` 或 build，以它为准
+
 - **固定 open-htmltofigma 版本**（记 commit/tag），并在导入前确认插件行为；避免依赖未文档化的 `ui.html` 元素 ID 以外的私有实现。
 - **先把插件视口设成原型尺寸**（本项目 393×852）。插件默认 1440×1024，若 HTML 用 `vh`/媒体查询，不设会把移动布局按桌面解析。
 - 注入自动导入脚本时**轮询就绪**，不要固定 sleep（骨架：`BAKED` 由构建脚本替换为 JSON 字符串）：

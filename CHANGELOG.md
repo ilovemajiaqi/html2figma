@@ -2,6 +2,15 @@
 
 All notable changes to this skill. Dates use ISO 8601.
 
+## 1.1.1 — 2026-11-17
+
+### Changed
+- Chinese is now the default README (`README.md`); the English edition moved to `README.en.md`, both with a language switcher.
+- Added shields.io badges (Agent Skills spec, Figma desktop, MIT, version, scripts).
+- Replaced the ASCII pipeline diagram with light/dark SVG diagrams (`assets/pipeline-*.svg`), embedded via `<picture>` so GitHub picks the right theme.
+- Documented how to download and install the upstream open-htmltofigma plugin (clone, pin a version, import manifest, handle id conflicts) in `SKILL.md` and `references/pipeline.md`.
+- `metadata.version` bumped to 1.1.1.
+
 ## 1.1.0 — 2026-11-17
 
 ### Corrected (verified against Figma desktop with a scratch-frame probe)
@@ -21,7 +30,7 @@ All notable changes to this skill. Dates use ISO 8601.
 - Skill renamed `html-to-figma-prototype` → `html2figma` (shorter, spec-compliant).
 - Viewport and FAB offsets are config-driven (defaults 393×852 / 104); preflight measures `.phone`, and other device sizes plug into the same config.
 - Import contract documented: pin the `open-htmltofigma` commit, set the plugin viewport before Convert, poll for readiness.
-- README restructured for open-source release (pipeline diagram, requirements, quality gates, FAQ, contributing) and MIT license added; bilingual docs with a full Simplified Chinese edition (README.zh-CN.md) and a language switcher.
+- README restructured for open-source release (pipeline diagram, requirements, quality gates, FAQ, contributing) and MIT license added; bilingual docs with a language switcher (since 1.1.1: Chinese is the default in README.md, English in README.en.md).
 
 ## 1.0.0 — 2026-11-17
 

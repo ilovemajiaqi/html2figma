@@ -4,7 +4,7 @@ description: Convert HTML phone prototypes into editable, clickable, scrollable 
 license: MIT
 compatibility: 工作流与 Agent 平台无关（Agent Skills 规范）；导入依赖 open-htmltofigma 开发插件与 Figma 桌面端；仓库内 PowerShell 自动化仅面向 Windows，其他平台按文档手动操作或改写。
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
 ---
 
 # html2figma — HTML 原型 ⇄ Figma 可编辑可点击原型
@@ -55,7 +55,7 @@ metadata:
 对原型实际字体做子集化 + 改名加统一前缀 + 安装（HKCU/系统字体）。Figma 必须命中同名字体，否则替换会制造假"断行错误"。命令与改名脚本见 pipeline。
 
 ### Phase 4 — 导入与拆板
-open-htmltofigma 插件在 iframe 真实渲染 feed → 直建 Frame/Text/Vector；本地注入脚本自动填写并 Convert（导入前把插件视口设成 393×852，否则 `vh`/媒体查询会按默认 1440×1024 解析）。导入后把每屏 Frame 提升为顶层、横排、命名 `NN id · 标题`，删根容器。**导入器不创建任何 reaction**，必须按 Phase 5 重写；插件版本要固定（见 [pipeline](references/pipeline.md)）。
+上游安装：`git clone https://github.com/kevicebryan/open-htmltofigma.git`，Figma 桌面 → Plugins → Development → Import plugin from manifest…（选仓库内 `manifest.json`）；固定 commit/tag，manifest id 冲突时改掉。插件在 iframe 真实渲染 feed → 直建 Frame/Text/Vector；本地注入脚本自动填写并 Convert（导入前把插件视口设成 393×852，否则 `vh`/媒体查询会按默认 1440×1024 解析）。导入后把每屏 Frame 提升为顶层、横排、命名 `NN id · 标题`，删根容器。**导入器不创建任何 reaction**，必须按 Phase 5 重写；插件版本要固定（见 [pipeline](references/pipeline.md)）。
 
 ### Phase 5 — 交互（reaction）
 按面积升序遍历热区；bbox ±2 命中最小非 TEXT 节点，中心点兜底；节点不支持 reaction 就沿祖先上爬；**已有 reaction 是继续上爬的理由**（父热区挂自己节点），不是终止条件；自跳跳过。读 `node.reactions`，写 `await setReactionsAsync()`。
